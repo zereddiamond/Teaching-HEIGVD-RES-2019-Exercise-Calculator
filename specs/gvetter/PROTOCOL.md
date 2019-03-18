@@ -1,17 +1,12 @@
 1. TCP
-2. Using a DNS (requesting the corresponding IP adress of the domain name)
+2. The address of the server and connecting to port 6753.
 3. The client
-4. 	Client: Asking connection
-	Server: ACK and Accept connection
-	Client: ACK
-	---
-	DATA TRANSFER
-	---
-	Client: Close connection
-	Server: ACK and prepare to close
-	Client: ACK and close
-	Server: Close
-5. The other party send an acknowledge to confirm that the message has been recieved.
-6. The message contains meta-data first, and the following byte are the rest of the message. We generate and parse them using conventional rules.
-7. The server partially close the connection when the client asks to.
+4. 	Client: HEY
+	Server: HEY
+	Client: OKK-2+2
+	Server: OKK-4
+	Client: BYE
+5. The other party send the needed answer to confirm that the message has been recieved. If not, we resend the message after some time.
+6. The first 3 letters of the message is the message. When an argument is needed, we pass him after a dash.
+7. The server close the connection when the client says BYE.
 
