@@ -16,7 +16,7 @@ Le client commence par envoyer un message, ici un calcul. Puis le serveur calcul
 
 ### What happens when a message is received from the other party ?
 
-Si c'est le client qui reçoit, il peut renvoyer 
+Si c'est le client qui reçoit, il peut renvoyer à nouveau un autre calcul. Si c'est le serveur, il doit traiter le message et renvoyer une réponse.
 
 ### What is the syntax of the messages? How we generate and parse them ? 
 
