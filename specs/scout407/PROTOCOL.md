@@ -2,7 +2,7 @@ What transport protocol do we use?
 	Type de protocle : TCP
 	
 How does the client find the server (addresses and ports)?
-	Adress ip avec son port
+	Adress ip avec son port : 188.10.12.15:85559
 	
 Who speaks first?
 	Le client parle en premier
