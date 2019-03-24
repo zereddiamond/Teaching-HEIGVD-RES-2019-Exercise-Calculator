@@ -2,33 +2,15 @@
 
 Le serveur sera disponible sur le port 1100 en TCP/IP à l'adresse du serveur `jzaehrin.xyz`.
 
-La communication se fera sous forme de structure JSON.
+La communication se donnera par des champs séparer de tab.
 
 ## Sequence
 
-1. Le serveur commence par notifié sa présence et son attente d'une demande. `{"response":"Hello"}`
-2. Le client peut alors envoyé une première requête demandant une première operation, la calculatrice sera en polonaise inverse.
-    C'est différente opération permetteront à l'utilisateur de modifié l'état de la calculatrice.
-
-```json
-{
-    "request": { 
-        "operation" : <string>,
-        "value" : <number>
-    }
-}
-```
-
-3. Le serveur founira un `ACK` quand l'operation est un success avec potentiellement un payload contenant un resultat, ou un `NACK` en cas d'erreur avec un payload d'information.
-
-```json
-{
-    "reponse" : {
-        "type" : <ACK, NACK>,
-        "message" : <string>,
-        "value" : <number>
-    }
-}
-```
-
-4. 
+1. Le serveur commence par notifié sa présence, son et son attente d'une demande. `HELLO\t<operations>:\t[<operation>\t]+`
+2. Le client peut maintenant envoyé une liste d'operand/operation de type polonaise inverse,
+    c'est à dire que les nombres seront empilés et dépilés deux par deux lors de l'arrivé d'une operation. `REQUEST\t<operand>\t<operand>\t<operation>`
+    Ce schema permet d'être extensible à plusieurs opérations concecutives. Le resultat sera empilé.
+3. Le serveur renvoi la première valeur de la pile. `ACK\t<result>`
+    1. Si une erreur est rencontré, le serveur repondra `NACK\t<message d'erreur>`
+4. Le cycle recommence à partir du point `2`
+    1. Si le client souhaite stoppé la connection, il coupe le canal. Le serveur attendra un timeout.
