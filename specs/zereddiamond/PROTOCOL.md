@@ -1,22 +1,22 @@
 ## Protocol of zereddiamond
 
 1. The transport protocol that we use is TCP. It is better than UDP,
-and the connexion between client and server is guaranteed.
+and the connexion between client and server is guaranteed. And finally it is easier to manage than UDP with Java.
 
-2. The client makes a socket with address 127.0.0.1 or with server's IP address.
-The port will be 8384.
+2. The client can etablish a connection with the server thanks to a socket
+with the server's IP address and the port 8384.
 
 3. The server is on and in listening mode. The client sends a
- request to the server.
+ request to the server. So the client speaks first.
 
-4. SYN, SYN+ACK, ACK (TCP protocol), client sends the operation,
-the server solves calculation and sends response to the client.
+4. After to etablish a TCP connection, the client enters and sends
+in a file to the server the operation. The server reads and splits 
+the file and sends in a file the answer.
 
-5. The client simply displays the response in a file.
+5. The client simply reads and displays the answer in a terminal
 
-6. Format :  <firstNumber> + <lastNumbrer> (Separate with spaces).
-The user write in a terminal, the operation will write in a file,
-sends to the server. The server reads files and appends the responses
-in the file and sends to the clients that reads this file.
+6. Format :  <first number> <last number> <operande> (separate with spaces and
+like the reverse polish notation).
+Format for the answer : <first number> <operande> <last number> = <answer>
 
-7. Connexion closed by the client at the end of the operation.  
+7. Connexion closed by the client at the end of the operation.
