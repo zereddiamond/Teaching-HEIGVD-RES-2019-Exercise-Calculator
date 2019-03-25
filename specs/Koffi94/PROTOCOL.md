@@ -1,21 +1,38 @@
-##My Protocol
-#What transport protocol do we use?
-We use TCP because it's a connexion-full protocol
+# My Client-Server Protocol
 
-#How does the client find the server (addresses and ports)?
-The client find the server with his IP adress + listening port (also call the socket) e.g. 192.168.1.10:3333
+### What transport protocol do we use ?
 
-#Who speaks first?
-The client speaks first to open to connexion
+It uses TCP as layer 4 because we full state connexion. The server should memorize some informations in the conversation.
 
-#What is the sequence of messages exchanged by the client and the server?
- SYN SYN ACK ACK then datas
+### How does the client find the server (addresses and ports) ?
 
-#What happens when a message is received from the other party?
-We send an ACK to validate that we have received
+The client find the server with his IP adress + listening port (also call the socket).
 
-#What is the syntax of the messages? How we generate and parse them?
- Syntaxe is SYN SYN-ACK ACK for the connexion and then DATA ACK
+The server will be in a Docker container so IP 172.17.0.x and listening on the port 12345
 
-#Who closes the connection and when?
- Anyone can close the conenxion with a FIN and the other send ACK then FIN-ACK and the other one send ACK
+### Who speaks first?
+
+The client speaks first to open to connexion.
+
+### What is the sequence of messages exchanged by the client and the server?
+
+| Client   | Server   |
+| :------- | -------- |
+| SYN      | -        |
+| -        | SYN ACK  |
+| ACK      | -        |
+| Data     | -        |
+| -        | Data ACK |
+| -        | Data     |
+| Data ACK | -        |
+| etc      | etc      |
+
+### What happens when a message is received from the other party?
+
+Send back a Data ACK to inform that the message has been well received and then send the response.
+
+### What is the syntax of the messages? How we generate and parse them?
+The message could be a CSV. Generated with OpenCSV and parsed with Apache Commons CSV.
+
+### Who closes the connection and when?
+The server closes the connexion because the server compute (or not) the calculation asked by the client and then closes the connexion by sending a FIN.
